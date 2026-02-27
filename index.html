@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIDE CONSULTING | 必得咨询</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bide: {
+                            red: '#800020',
+                            dark: '#1a1a1a',
+                            light: '#f4f4f4',
+                            gold: '#C5A059'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .nav-scrolled .nav-link {
+            color: #1a1a1a;
+        }
+        .nav-scrolled .nav-link:hover {
+            color: #800020;
+        }
+        .nav-scrolled .logo-text {
+            color: #1a1a1a;
+        }
+        .nav-scrolled .lang-btn {
+            color: #800020;
+            border-color: #800020;
+        }
+        .nav-scrolled .lang-btn:hover {
+            background: #800020;
+            color: white;
+        }
+        .timeline-item {
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover .timeline-desc {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .timeline-desc {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+        .counter {
+            font-feature-settings: 'tnum';
+            font-variant-numeric: tabular-nums;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(128, 0, 32, 0.7);
+            }
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(128, 0, 32, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(128, 0, 32, 0);
+            }
+        }
+        .map-marker {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="https://coze-coding-project.tos.coze.site/create_attachment/2026-02-26/3036178838494248_13d64209a6c316519d2f945b7589c112_IMG_7135.PNG?sign=4894176517-b1e31f9f9c-0-f888e2b5e89e5ef9a39b85e236c64058a939928b4fe5b03208dc0012d16cea77" alt="BIDE Logo" class="h-10 w-auto object-contain mr-3">
+                    <span class="font-serif text-2xl font-bold text-gray-900 tracking-wide logo-text">
+                        BIDE <span class="text-bide-red">CONSULTING</span>
+                    </span>
+                    <span class="ml-2 border-l border-gray-400 pl-2 text-sm text-gray-600 tracking-widest hidden sm:block">必得咨询</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="nav-link text-sm font-medium hover:text-bide-red transition text-gray-900" data-key="nav_about">关于我们</a>
+                    <a href="#impact" class="nav-link text-sm font-medium hover:text-bide-red transition text-gray-900" data-key="nav_impact">影响力</a>
+                    <a href="#journey" class="nav-link text-sm font-medium hover:text-bide-red transition text-gray-900" data-key="nav_journey">发展历程</a>
+                    <a href="#education" class="nav-link text-sm font-medium hover:text-bide-red transition text-gray-900" data-key="nav_edu">未来领袖</a>
+                    <a href="#capital" class="nav-link text-sm font-medium hover:text-bide-red transition text-gray-900" data-key="nav_cap">未来产业</a>
+                    <a href="#methodology" class="nav-link text-sm font-medium hover:text-bide-red transition text-gray-900" data-key="nav_method">聚变力量</a>
+                    <button onclick="toggleLanguage()" class="lang-btn border border-bide-red text-bide-red px-4 py-1 rounded-full text-xs font-bold hover:bg-bide-red hover:text-white transition uppercase">
+                        <span id="lang-btn-text">EN</span>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleLanguage()" class="mr-4 text-bide-red font-bold text-xs border border-bide-red px-2 py-1 rounded">
+                        <span id="lang-btn-text-mobile">EN</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-bide-red focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#about" class="block text-gray-900 hover:text-bide-red transition text-sm font-medium" data-key="nav_about">关于我们</a>
+                <a href="#impact" class="block text-gray-900 hover:text-bide-red transition text-sm font-medium" data-key="nav_impact">影响力</a>
+                <a href="#journey" class="block text-gray-900 hover:text-bide-red transition text-sm font-medium" data-key="nav_journey">发展历程</a>
+                <a href="#education" class="block text-gray-900 hover:text-bide-red transition text-sm font-medium" data-key="nav_edu">未来领袖</a>
+                <a href="#capital" class="block text-gray-900 hover:text-bide-red transition text-sm font-medium" data-key="nav_cap">未来产业</a>
+                <a href="#methodology" class="block text-gray-900 hover:text-bide-red transition text-sm font-medium" data-key="nav_method">聚变力量</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center justify-center text-center px-4 relative">
+        <div class="max-w-4xl mx-auto text-white fade-in">
+            <p class="text-bide-gold font-bold tracking-[0.2em] uppercase text-sm mb-4" data-key="hero_slogan">Feel Great. Do Great.</p>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                <span data-key="hero_title">链接潜能，智胜未来</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-3xl mx-auto font-light" data-key="hero_sub">
+                链接思维与动能，转化愿景为价值。我们策划全球化卓越体验，驱动未来领袖与产业的共同增长。
+            </p>
+            <a href="#contact" class="inline-block bg-bide-red hover:bg-red-900 text-white font-medium py-3 px-8 rounded-sm transition duration-300 tracking-wide" data-key="hero_cta">
+                开启合作
+            </a>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- The Philosophy (Bridge) -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="w-16 h-1 bg-bide-red mb-6"></div>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-6" data-key="about_title">
+                        专注链接价值
+                    </h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed text-sm md:text-base" data-key="about_p1">
+                        必得咨询由来自北京大学、中央圣马丁艺术与设计学院和华为的远见卓识者于2011年在香港创立，以弥合精英人才与全球机构之间的鸿沟的桥梁价值为使命。
+                    </p>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base" data-key="about_p2">
+                        十多年来，从指导数千名学生进入顶尖大学和世界500强企业，到为创业者提供资金和政府政策支持，我们不断发展壮大。如今，我们扎根大湾区，业务遍及全球，已构建起一个全面的创新生态系统。无论是通过我们的教育部门还是资本品牌'九思资本'，我们始终相信：正确的连接改变一切。
+                    </p>
+                </div>
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-gray-100 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Meeting" class="relative z-10 shadow-xl w-full object-cover h-96 grayscale hover:grayscale-0 transition duration-700 rounded-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Impact (Key Statistics) -->
+    <section id="impact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-key="impact_title">我们的影响力</h2>
+                <div class="w-16 h-1 bg-bide-red mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="counter font-serif text-5xl font-bold text-bide-red mb-3" data-key="stat1_value">20亿+</div>
+                    <p class="text-gray-600 font-medium" data-key="stat1_label">项目融资总额</p>
+                </div>
+
+                <div class="text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="counter font-serif text-5xl font-bold text-bide-red mb-3" data-key="stat2_value">200+</div>
+                    <p class="text-gray-600 font-medium" data-key="stat2_label">初创企业和项目完成融资</p>
+                </div>
+
+                <div class="text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="counter font-serif text-5xl font-bold text-bide-red mb-3" data-key="stat4_value">3</div>
+                    <p class="text-gray-600 font-medium" data-key="stat4_label">政府背书的赋能企业发展的孵化器运营</p>
+                </div>
+
+                <div class="text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="counter font-serif text-5xl font-bold text-bide-red mb-3" data-key="stat3_value">10,000+</div>
+                    <p class="text-gray-600 font-medium" data-key="stat3_label">校友被顶尖大学录取</p>
+                </div>
+
+                <div class="text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="counter font-serif text-5xl font-bold text-bide-red mb-3" data-key="stat5_value">32</div>
+                    <p class="text-gray-600 font-medium" data-key="stat5_label">省级区域：学生来自全国各地</p>
+                </div>
+
+                <div class="text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="counter font-serif text-5xl font-bold text-bide-red mb-3" data-key="stat6_value">500+</div>
+                    <p class="text-gray-600 font-medium" data-key="stat6_label">学校：建立良好合作关系</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Journey (Timeline) -->
+    <section id="journey" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-key="journey_title">发展历程</h2>
+                <div class="w-16 h-1 bg-bide-red mx-auto"></div>
+            </div>
+
+            <div class="relative">
+                <!-- Center Line -->
+                <div class="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-bide-red/30"></div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-12 relative">
+                    <!-- 2011 -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline1_year">2011年<br>香港</div>
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-bide-red border-4 border-white shadow-lg"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline1_desc">由行业精英创立。致力于搭建精英人才与知名校企之间的桥梁。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline1_desc">由行业精英创立。致力于搭建精英人才与知名校企之间的桥梁。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2014 -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline2_year">2014年<br>扩张</div>
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-bide-red border-4 border-white shadow-lg"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline2_desc">设立深圳办事处。"拜登校园行"全国高校公益讲座，走访北京、上海、成都等地区共计26所高校指导同学大学规划及职业发展。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline2_desc">设立深圳办事处。"拜登校园行"全国高校公益讲座，走访北京、上海、成都等地区共计26所高校指导同学大学规划及职业发展。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2016 -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline3_year">2016年<br>全球拓展</div>
+                          
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-bide-red border-4 border-white shadow-lg"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline3_desc">为超过2500位学员提供了海外大学交换和企业实习项目机会。战略投资旅游科技公司，子公司估值近2000万美元。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline3_desc">为超过2500位学员提供了海外大学交换和企业实习项目机会。战略投资旅游科技公司，子公司估值近2000万美元。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2017 - Highlighted -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline4_year">2017年<br>转型</div>
+                        
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-5 h-5 rounded-full bg-bide-red border-4 border-white shadow-lg ring-4 ring-bide-red/20"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline4_desc">总部迁至前海。必得咨询与香港专业联盟联合发起深港青年专业联盟众创空间，荣幸接待香港特区行政长官林郑月娥和深圳市委书记王维忠的来访，彰显了我们在跨境创新领域的作用。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline4_desc">总部迁至前海。必得咨询与香港专业联盟联合发起深港青年专业联盟众创空间，荣幸接待香港特区行政长官林郑月娥和深圳市委书记王维忠的来访，彰显了我们在跨境创新领域的作用。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2019 -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline5_year">2019年<br>国际金融</div>
+                            
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-bide-red border-4 border-white shadow-lg"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline5_desc">首家推出新加坡财富500强企业实习项目及金融科技生态系统整合的机构。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline5_desc">首家推出新加坡财富500强企业实习项目及金融科技生态系统整合的机构。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2020 -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline6_year">2020年<br>资本运作</div>
+                          
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-bide-red border-4 border-white shadow-lg"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline6_desc">牵头运营UNI香港青年创业空间。资本服务业务发展成熟，在各方投资机构合作伙伴的支持下，以"九思资本"为品牌深度开展投资银行/财务顾问业务。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline6_desc">牵头运营UNI香港青年创业空间。资本服务业务发展成熟，在各方投资机构合作伙伴的支持下，以"九思资本"为品牌深度开展投资银行/财务顾问业务。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2023 -->
+                    <div class="timeline-container group relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <div class="font-serif text-2xl md:text-3xl font-bold text-bide-red mb-2" data-key="timeline7_year">2023年<br>政府-企业合作</div>
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-bide-red border-4 border-white shadow-lg"></div>
+                        <div class="hidden md:block md:pl-8">
+                            <p class="text-gray-600 timeline-detail opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-key="timeline7_desc">落地蚌埠禹会-深圳大湾区产融基地，聚焦光点/半导体行业。</p>
+                        </div>
+                        <div class="md:hidden mt-3 ml-2">
+                            <p class="text-gray-600 text-sm" data-key="timeline7_desc">落地蚌埠禹会-深圳大湾区产融基地，聚焦光点/半导体行业。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Engine Section -->
+    <section class="py-0 bg-gray-50">
+        <div class="flex flex-col md:flex-row h-auto md:h-[600px]">
+            
+            <div id="education" class="w-full md:w-1/2 relative group overflow-hidden cursor-pointer" onclick="document.getElementById('global-footprint').scrollIntoView({behavior: 'smooth'})">
+                <div class="absolute inset-0 bg-cover bg-center transition duration-700 transform group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                <div class="absolute inset-0 bg-bide-red/90 md:bg-bide-red/80 group-hover:bg-bide-red/90 transition duration-500"></div>
+                
+                <div class="relative z-10 h-full flex flex-col justify-center p-12 md:p-20 text-white">
+                    <i class="fas fa-graduation-cap text-4xl mb-6 text-bide-gold"></i>
+                    <h3 class="font-serif text-3xl font-bold mb-4" data-key="edu_title">未来领袖 | 研学游学</h3>
+                    <p class="text-white/80 mb-8 leading-relaxed" data-key="edu_desc">
+                        我们不提供走马观花的旅游，我们提供改变认知的经历。通过链接全球顶级名校与企业资源，为青少年提供沉浸式学习体验，孵化具备全球视野的未来人才。
+                    </p>
+                    <ul class="space-y-2 text-sm font-medium text-white/90">
+                        <li class="flex items-center"><i class="fas fa-check mr-2 text-bide-gold"></i> <span data-key="edu_list1">全球名校探访</span></li>
+                        <li class="flex items-center"><i class="fas fa-check mr-2 text-bide-gold"></i> <span data-key="edu_list2">PBL项目制学习</span></li>
+                        <li class="flex items-center"><i class="fas fa-check mr-2 text-bide-gold"></i> <span data-key="edu_list3">背景提升与生涯规划</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="capital" class="w-full md:w-1/2 relative group overflow-hidden cursor-pointer" onclick="document.getElementById('jiusi-capital').scrollIntoView({behavior: 'smooth'})">
+                <div class="absolute inset-0 bg-cover bg-center transition duration-700 transform group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                <div class="absolute inset-0 bg-gray-900/90 md:bg-gray-900/80 group-hover:bg-gray-900/90 transition duration-500"></div>
+                
+                <div class="relative z-10 h-full flex flex-col justify-center p-12 md:p-20 text-white">
+                    <i class="fas fa-chart-line text-4xl mb-6 text-bide-gold"></i>
+                    <h3 class="font-serif text-3xl font-bold mb-4" data-key="cap_title">未来产业 | 资本FA</h3>
+                    <p class="text-white/80 mb-8 leading-relaxed" data-key="cap_desc">
+                        我们不只是撮合交易，更是产业生态的构建者。连接政府政策、产业园区与风险资本，通过高端峰会与精准路演，加速企业从孵化到上市的进程。
+                    </p>
+                    <ul class="space-y-2 text-sm font-medium text-white/90">
+                        <li class="flex items-center"><i class="fas fa-check mr-2 text-bide-gold"></i> <span data-key="cap_list1">投融资对接 (FA)</span></li>
+                        <li class="flex items-center"><i class="fas fa-check mr-2 text-bide-gold"></i> <span data-key="cap_list2">孵化器运营管理</span></li>
+                        <li class="flex items-center"><i class="fas fa-check mr-2 text-bide-gold"></i> <span data-key="cap_list3">政府招商与产业落地</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Global Footprint Section -->
+    <section id="global-footprint" class="py-20 bg-white text-gray-800 font-sans">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header Title Area -->
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <span data-key="global_footprint_title_main" class="block">全球足迹</span>
+                    <span data-key="global_footprint_title_en_only" class="text-bide-red hidden">Global Footprint</span>
+                </h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg" data-key="global_footprint_subtitle">
+                    立足大湾区，连接世界。我们的研学项目与校友网络已覆盖全球核心创新区域。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Map Display Area (8 columns) -->
+                <div class="lg:col-span-8 relative">
+                    <!-- Map Container -->
+                    <div class="relative w-full aspect-[1.8/1] bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden shadow-inner">
+                        
+                        <!-- SVG Background Map -->
+                        <div class="absolute inset-0 opacity-40" style="
+                            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            filter: grayscale(100%) contrast(0.5) brightness(1.2);
+                        "></div>
+
+                        <!-- Dynamic Markers (Red Dots) -->
+                        <!-- USA -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 32%; left: 22%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                美国 (USA)
+                            </div>
+                        </div>
+
+                        <!-- UK -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 24%; left: 47%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                英国 (UK)
+                            </div>
+                        </div>
+
+                        <!-- Shanghai -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 36%; left: 78%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                上海 (Shanghai)
+                            </div>
+                        </div>
+
+                        <!-- Taiwan -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 40%; left: 80%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                台湾 (Taiwan)
+                            </div>
+                        </div>
+
+                        <!-- Japan -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 34%; left: 85%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                日本 (Japan)
+                            </div>
+                        </div>
+
+                        <!-- Korea -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 34%; left: 82%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                韩国 (Korea)
+                            </div>
+                        </div>
+
+                        <!-- Singapore/Malaysia -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 52%; left: 76%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                新加坡/马来西亚
+                            </div>
+                        </div>
+
+                        <!-- Sri Lanka -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 50%; left: 68%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                斯里兰卡 (Sri Lanka)
+                            </div>
+                        </div>
+
+                        <!-- Australia -->
+                        <div class="absolute flex flex-col items-center group cursor-pointer" style="top: 70%; left: 85%;">
+                            <div class="relative flex items-center justify-center w-4 h-4">
+                                <div class="map-marker absolute w-full h-full bg-bide-red rounded-full opacity-75"></div>
+                                <span class="relative w-2 h-2 bg-bide-red rounded-full border border-white"></span>
+                            </div>
+                            <div class="absolute top-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                                澳大利亚 (Australia)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Text -->
+                    <div class="absolute bottom-4 left-6 text-xs text-gray-400 font-mono">
+                        PROGRAM COVERAGE MAP // 2011-2025
+                    </div>
+                </div>
+
+                <!-- QR Code Action Area (4 columns) -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-key="connect_global">连接全球生态</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-key="scan_instruction">
+                            扫描下方二维码，获取最新游学资讯或阅读校友成功故事。
+                        </p>
+
+                        <!-- Card 1: Global Study Tours -->
+                        <div class="flex items-start space-x-4 mb-6 p-4 bg-white rounded-xl shadow-sm border border-gray-100 transition hover:shadow-md">
+                            <div class="bg-white p-2 rounded-lg border border-gray-200 shadow-sm flex-shrink-0">
+                                <img src="assets/必得咨询.JPG" alt="必得咨询 QR Code" class="w-24 h-24 object-contain rounded">
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-gray-900 text-sm" data-key="qr1_title_main">探索研学项目</h4>
+                                <p class="text-xs text-gray-500 mt-1 mb-2" data-key="qr1_title_sub">Global Study Tours</p>
+                                <a href="#" class="text-xs text-bide-red font-medium flex items-center hover:underline" data-key="view_details_container">
+                                    <span data-key="view_details">查看详情</span>
+                                    <i class="fas fa-arrow-right w-3 h-3 ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Alumni Stories -->
+                        <div class="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm border border-gray-100 transition hover:shadow-md">
+                            <div class="bg-white p-2 rounded-lg border border-gray-200 shadow-sm flex-shrink-0">
+                                <img src="assets/必得财经.JPG" alt="必得财经 QR Code" class="w-24 h-24 object-contain rounded">
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-gray-900 text-sm" data-key="qr2_title_main">校友成长故事</h4>
+                                <p class="text-xs text-gray-500 mt-1 mb-2" data-key="qr2_title_sub">Alumni Stories</p>
+                                <a href="#" class="text-xs text-bide-red font-medium flex items-center hover:underline" data-key="read_more_container">
+                                    <span data-key="read_more">阅读更多</span>
+                                    <i class="fas fa-arrow-right w-3 h-3 ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jiusi Capital Section -->
+    <section id="jiusi-capital" class="py-20 bg-white text-gray-800 font-sans">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header Title Area -->
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <span data-key="jiusi_title">九思资本</span>
+                </h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg" data-key="jiusi_subtitle">
+                    为高成长力企业赋能
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Content Area (8 columns) -->
+                <div class="lg:col-span-8">
+                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4" data-key="jiusi_section_title">
+                            创新企业投融资平台
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed mb-6" data-key="jiusi_desc">
+                            长期专注创业服务领域，为投资人提供高效、精准、系统的服务，帮助投资人快速挑选和对接项目，让工作更加简便、高效、轻松。超过5000位投资人通过我们寻找项目，每年有超过200场路演或一对一交流通过我们安排。我们全程陪伴数千创业者，通过拥有的特定市场信息、人脉资源、在线或非在线的专业工具为高成长创新企业提供模块化全流程融资服务。
+                        </p>
+                        
+                        <!-- Data Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Data Card 1 -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                                <div class="text-4xl font-bold text-bide-red mb-2" data-key="jiusi_stat1">5000+</div>
+                                <div class="text-gray-600 text-sm" data-key="jiusi_stat1_label">投资人通过我们寻找项目</div>
+                            </div>
+                            <!-- Data Card 2 -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                                <div class="text-4xl font-bold text-bide-red mb-2" data-key="jiusi_stat2">200+</div>
+                                <div class="text-gray-600 text-sm" data-key="jiusi_stat2_label">路演或一对一交流每年安排</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Code Area (4 columns) -->
+                <div class="lg:col-span-4">
+                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 text-center">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm inline-block mb-6">
+                            <img src="assets/九思资本.png" alt="九思资本 QR Code" class="w-32 h-32 object-contain rounded">
+                        </div>
+                        <p class="text-gray-600 text-sm" data-key="jiusi_qr_text">
+                            扫码了解更多
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology / The Event Aspect -->
+    <section id="methodology" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-key="method_title">聚变的力量</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto mb-16" data-key="method_sub">我们超越简单的连接，致力于促成资本与创新的深度融合。通过将数据智能与卓越执行力相结合，我们将潜在机遇转化为实质性增长，确保每一次合作都建立在价值共识的坚实基础之上。</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 border border-gray-100 hover:shadow-xl transition duration-300 rounded-sm bg-gray-50">
+                    <div class="text-bide-red text-4xl mb-4"><i class="far fa-handshake"></i></div>
+                    <h4 class="font-bold text-lg mb-2" data-key="card1_title">精准匹配</h4>
+                    <p class="text-sm text-gray-600" data-key="card1_desc">无论是为学生匹配导师，还是为项目匹配资金，我们坚持"量身定制"。</p>
+                </div>
+                <div class="p-8 border border-gray-100 hover:shadow-xl transition duration-300 rounded-sm bg-gray-50">
+                    <div class="text-bide-red text-4xl mb-4"><i class="far fa-calendar-alt"></i></div>
+                    <h4 class="font-bold text-lg mb-2" data-key="card2_title">卓越执行</h4>
+                    <p class="text-sm text-gray-600" data-key="card2_desc">从国际游学的安全保障到资本峰会的流程控场，细节决定成败。</p>
+                </div>
+                <div class="p-8 border border-gray-100 hover:shadow-xl transition duration-300 rounded-sm bg-gray-50">
+                    <div class="text-bide-red text-4xl mb-4"><i class="fas fa-rocket"></i></div>
+                    <h4 class="font-bold text-lg mb-2" data-key="card3_title">价值交付</h4>
+                    <p class="text-sm text-gray-600" data-key="card3_desc">活动不是终点，而是起点。我们关注的是活动后的成长与文件交割。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-bide-dark text-white py-16 border-t-4 border-bide-red">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://coze-coding-project.tos.coze.site/create_attachment/2026-02-26/3036178838494248_13d64209a6c316519d2f945b7589c112_IMG_7135.PNG?sign=4894176517-b1e31f9f9c-0-f888e2b5e89e5ef9a39b85e236c64058a939928b4fe5b03208dc0012d16cea77" alt="BIDE Logo" class="h-10 w-auto object-contain mr-3">
+                        <span class="font-serif text-2xl font-bold tracking-wide">BIDE CONSULTING</span>
+                    </div>
+                    <p class="mt-4 text-gray-400 text-sm leading-relaxed" data-key="footer_about">
+                        Bridging Potential
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-6 text-bide-gold" data-key="footer_contact">联系我们</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li data-key="contact_address"><i class="fas fa-map-marker-alt w-6"></i> 地址：深圳市南山区阳光科创中心二期A座2806室</li>
+                        <li><i class="fas fa-envelope w-6"></i> Email: info@biden.hk</li>
+                        <li><i class="fas fa-phone w-6"></i> Phone: +86 0755 2655 4667</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-6 text-bide-gold" data-key="footer_form_title">联系我们</h4>
+                    <form class="space-y-3" onsubmit="event.preventDefault(); alert('感谢您的留言！我们会尽快与您联系。');">
+                        <input type="text" placeholder="您的姓名 NAME" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-bide-red">
+                        <input type="email" placeholder="您的邮箱 EMAIL" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-bide-red">
+                        <textarea placeholder="您的留言 MESSAGE" rows="3" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-bide-red"></textarea>
+                        <button type="submit" class="w-full bg-bide-red hover:bg-red-900 text-white font-bold py-2 px-4 rounded text-sm transition">提交 SUBMIT</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-xs text-gray-500">
+                &copy; 2023 Biden Consulting LTD. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Language Logic -->
+    <script>
+        const translations = {
+            zh: {
+                nav_about: "关于我们",
+                nav_impact: "影响力",
+                nav_journey: "发展历程",
+                nav_edu: "教育业务",
+                nav_cap: "资本业务",
+                nav_method: "聚变力量",
+                hero_slogan: "Feel Great. Do Great.",
+                hero_title: "链接潜能，智胜未来",
+                hero_sub: "链接思维与动能，转化愿景为价值。我们策划全球化卓越体验，驱动未来领袖与产业的共同增长。",
+                hero_cta: "开启合作",
+                about_title: "专注链接价值",
+                about_p1: "必得咨询由来自北京大学、中央圣马丁艺术与设计学院和华为的远见卓识者于2011年在香港创立，以弥合精英人才与全球机构之间的鸿沟的桥梁价值为使命。",
+                about_p2: "十多年来，从指导数千名学生进入顶尖大学和世界500强企业，到为创业者提供资金和政府政策支持，我们不断发展壮大。如今，我们扎根大湾区，业务遍及全球，已构建起一个全面的创新生态系统。无论是通过我们的教育部门还是资本品牌'九思资本'，我们始终相信：正确的连接改变一切。",
+                impact_title: "我们的影响力",
+                stat1_value: "20亿+",
+                stat1_label: "项目融资总额",
+                stat2_value: "200+",
+                stat2_label: "初创企业和项目完成融资",
+                stat3_value: "10,000+",
+                stat3_label: "校友被顶尖大学录取",
+                stat4_value: "3",
+                stat4_label: "政府背书的赋能企业发展的孵化器运营",
+                stat5_value: "32",
+                stat5_label: "省级区域：学生来自全国各地",
+                stat6_value: "500+",
+                stat6_label: "学校：建立良好合作关系",
+                journey_title: "发展历程",
+                timeline1_year: "2011年（香港）",
+                timeline1_title: "创立起步",
+                timeline1_desc: "由行业精英创立。致力于搭建精英人才与知名校企之间的桥梁。",
+                timeline2_year: "2014年（扩张）",
+                timeline2_title: "业务扩张",
+                timeline2_desc: "设立深圳办事处。\"拜登校园行\"全国高校公益讲座，走访北京、上海、成都等地区共计26所高校指导同学大学规划及职业发展。",
+                timeline3_year: "2016年（全球拓展）",
+                timeline3_title: "全球布局",
+                timeline3_desc: "为超过2500位学员提供了海外大学交换和企业实习项目机会。战略投资旅游科技公司，子公司估值近2000万美元。",
+                timeline4_year: "2017年（转型）",
+                timeline4_title: "战略转型",
+                timeline4_desc: "总部迁至前海。必得咨询与香港专业联盟联合发起深港青年专业联盟众创空间，荣幸接待香港特区行政长官林郑月娥和深圳市委书记王维忠的来访，彰显了我们在跨境创新领域的作用。",
+                timeline5_year: "2019年（国际金融）",
+                timeline5_title: "金融布局",
+                timeline5_desc: "首家推出新加坡财富500强企业实习项目及金融科技生态系统整合的机构。",
+                timeline6_year: "2020年（资本运作）",
+                timeline6_title: "资本孵化",
+                timeline6_desc: "牵头运营UNI香港青年创业空间。资本服务业务发展成熟，在各方投资机构合作伙伴的支持下，以\"九思资本\"为品牌深度开展投资银行/财务顾问业务。",
+                timeline7_year: "2023年（政府-企业合作）",
+                timeline7_title: "政企合作",
+                timeline7_desc: "落地蚌埠禹会-深圳大湾区产融基地，聚焦光点/半导体行业。",
+                edu_title: "人才成长赋能",
+                edu_desc: "我们凭借十年深耕的名校与世界500强企业合作网络，我们为下一代领袖定制通往顶峰的成长路径。我们提供的不仅仅是教育咨询，更是进入全球精英圈层的入场券。我们赋能年轻一代在世界舞台上定义未来。",
+                edu_list1: "全球名校探访",
+                edu_list2: "PBL项目制学习",
+                edu_list3: "背景提升与生涯规划",
+                cap_title: "创新的催化剂",
+                cap_desc: "依托核心品牌九思资本，我们将政策红利、产业资源与顶尖人才精准注入企业，为高成长企业构建了全生命周期的战略支持体系。从运营大湾区政府合作孵化器，到累计助力 200+ 项目完成逾 200亿人民币 融资，我们深耕半导体、金融科技与硬科技领域。",
+                cap_list1: "投融资对接 (FA)",
+                cap_list2: "孵化器运营管理",
+                cap_list3: "政府招商与产业落地",
+                method_title: "聚变的力量",
+                method_sub: "我们通过精心策划的\"活动\"，让正确的资源在正确的时间相遇。",
+                card1_title: "精准匹配",
+                card1_desc: "无论是为学生匹配导师，还是为项目匹配资金，我们坚持\"量身定制\"。",
+                card2_title: "卓越执行",
+                card2_desc: "从国际游学的安全保障到资本峰会的流程控场，细节决定成败。",
+                card3_title: "价值交付",
+                card3_desc: "活动不是终点，而是起点。我们关注的是活动后的成长与文件交割。",
+                footer_about: "Bridging Potential",
+                footer_contact: "联系我们",
+                footer_form_title: "联系我们",
+                contact_address: "地址：深圳市南山区阳光科创中心二期A座2806室",
+                global_footprint_title: "全球项目足迹",
+                global_footprint_subtitle: "立足大湾区，连接世界。我们的研学项目与校友网络已覆盖全球核心创新区域。",
+                global_footprint_title_main: "全球足迹",
+                global_footprint_title_en_only: "Global Footprint",
+                qr1_title: "探索游学与研学项目信息",
+                qr1_desc: "了解我们的全球研学项目",
+                qr1_title_main: "探索研学项目",
+                qr1_title_sub: "Global Study Tours",
+                view_details: "扫码查看详情",
+                qr2_title: "聆听校友成长故事",
+                qr2_desc: "查看校友成功案例",
+                qr2_title_main: "校友成长故事",
+                qr2_title_sub: "扫码查看详情",
+                read_more: "扫码查看",
+                qr_instruction: "扫码深入了解我们的项目生态",
+                jiusi_title: "九思资本",
+                jiusi_subtitle: "为高成长力企业赋能",
+                jiusi_section_title: "创新企业投融资平台",
+                jiusi_desc: "长期专注创业服务领域，为投资人提供高效、精准、系统的服务，帮助投资人快速挑选和对接项目，让工作更加简便、高效、轻松。超过5000位投资人通过我们寻找项目，每年有超过200场路演或一对一交流通过我们安排。我们全程陪伴数千创业者，通过拥有的特定市场信息、人脉资源、在线或非在线的专业工具为高成长创新企业提供模块化全流程融资服务。",
+                jiusi_stat1: "5000+",
+                jiusi_stat1_label: "投资人通过我们寻找项目",
+                jiusi_stat2: "200+",
+                jiusi_stat2_label: "路演或一对一交流每年安排",
+                jiusi_qr_text: "扫码了解更多"
+            },
+            en: {
+                nav_about: "Who We Are",
+                nav_impact: "Our Impact",
+                nav_journey: "Our Journey",
+                nav_edu: "Education",
+                nav_cap: "Capital",
+                nav_method: "Our Approach",
+                hero_slogan: "Feel Great. Do Great.",
+                hero_title: "Bridging Potential",
+                hero_sub: "Connecting minds to momentum, and vision to value. We curate the global experiences that drive growth for future leaders and industries.",
+                hero_cta: "Partner With Us",
+                about_title: "The Architect of Opportunity",
+                about_p1: "Founded in 2011 in Hong Kong by a coalition of visionaries from Peking University, Central Saint Martins, and Huawei, BIDE Consulting began with a singular mission: to bridge the gap between elite talent and global institutions.",
+                about_p2: "Over a decade, our bridge has widened. From guiding thousands of students to top-tier universities and Fortune 500 careers, to empowering visionary entrepreneurs with capital and government policy support. Today, anchored in the Greater Bay Area and operating globally, we are a comprehensive innovation ecosystem. Whether through our education arm or our capital brand 'Jiusi Capital', we remain dedicated to one core belief: The right connection changes everything.",
+                impact_title: "Our Impact",
+                stat1_value: "20B+ RMB",
+                stat1_label: "Total Financing Raised for Projects",
+                stat2_value: "200+",
+                stat2_label: "Startups & Projects Funded",
+                stat4_value: "3",
+                stat4_label: "Incubators: Full-lifecycle empowerment for enterprise development",
+                stat3_value: "10,000+",
+                stat3_label: "Alumni Admitted to Top Universities",
+
+                stat5_value: "32",
+                stat5_label: "Provincial-level regions: Students come from all over the country",
+                stat6_value: "500+",
+                stat6_label: "Universities: Strong partnerships established",
+                journey_title: "Our Journey",
+                timeline1_year: "2011<br>Hong Kong",
+                timeline1_desc: "Founded by industry elites. Focused on bridging top talent with well-known universities and enterprises.",
+                timeline2_year: "2014<br>Expansion",
+                timeline2_desc: "Established Shenzhen office. Launched the \"Biden Campus Tour\" public lectures across 26 universities in Beijing, Shanghai, Chengdu and other regions, guiding students on university planning and career development.",
+                timeline3_year: "2016<br>Global Reach",
+                timeline3_desc: "Provided overseas university exchange and corporate internship opportunities for over 2,500 students. Strategic investment in Travel-Tech, valuing subsidiary at nearly 20M.",
+                timeline4_year: "2017<br>The Pivot",
+                timeline4_desc: "HQ moved to Qianhai. Biden Consulting and Hong Kong Young Professionals Alliance jointly launched the Young Professionals Alliance Co-working Space. Honored by the visit of HKSAR Chief Executive Carrie Lam and Shenzhen Party Secretary Wang Weizhong, validating our role in cross-border innovation.",
+                timeline5_year: "2019<br>International Finance",
+                timeline5_desc: "First agency to launch Singapore Fortune 500 internships and Fintech ecosystem integration.",
+                timeline6_year: "2020<br>Capital Arm",
+                timeline6_desc: "Launched the UNI Hong Kong Youth Entrepreneurship Space. With a mature capital services division, and supported by a network of investment-institution partners, we operate in depth under the 'Jiusi Capital' brand, delivering investment banking and financial advisory services.",
+                timeline7_year: "2023<br>Gov-Enterprise",
+                timeline7_desc: "Implemented the Bengbu Yuhui–Shenzhen Greater Bay Area Industry–Finance Integration Base in Qianhai, with a focus on optoelectronics and semiconductor industries.",
+                edu_title: "The Launchpad for Global Talent",
+                edu_desc: "Leveraging a decade of partnerships with top-tier universities and Fortune 500 corporations, we curate a personalized pathway for the next generation of leaders. We provide more than education consulting—we offer access to an elite global circle. We empower students to define their future on the world stage.",
+                edu_list1: "Global University Visits",
+                edu_list2: "Project-Based Learning (PBL)",
+                edu_list3: "Career Planning & Enrichment",
+                cap_title: "The Catalyst for Innovation",
+                cap_desc: "Operating under our premier brand, our ecosystem connects companies to the policy, industry, and talent resources they need to dominate their markets. From managing government-backed incubators in the Greater Bay Area to facilitating over 20B RMB in financing for 200+ startups, we focus deeply on Semiconductors, Fintech, and Hard Tech.",
+                cap_list1: "Capital Matchmaking (FA)",
+                cap_list2: "Incubator Operations",
+                cap_list3: "Gov & Enterprise Relations",
+                method_title: "The Power of Fusion",
+                method_sub: "We go beyond simple connections to create powerful synergies between capital and innovation. By integrating data intelligence with rigorous execution, we transform potential opportunities into tangible growth, ensuring that every partnership is built on a solid foundation of shared value.",
+                card1_title: "Precise Matching",
+                card1_desc: "Whether matching a student to a mentor or a project to a fund, we believe in bespoke curation.",
+                card2_title: "Execution Excellence",
+                card2_desc: "From the safety of a global tour to the flow of a capital summit, details define success.",
+                card3_title: "Value Delivery",
+                card3_desc: "The event is not the end, but the start. We focus on the growth and closing that happens after.",
+                footer_about: "Bridging Potential",
+                footer_contact: "Contact Us",
+                footer_form_title: "Contact Us",
+                contact_address: "<i class='fas fa-map-marker-alt w-6'></i>Room 2806, Block A, Phase II, Sunshine Science and Technology Innovation Center, Nanshan District, Shenzhen",
+                global_footprint_title: "Our Global Footprint",
+                global_footprint_subtitle: "From Shenzhen to the World. We have established programs and alumni networks across key global innovation hubs.",
+                global_footprint_title_main: "",
+                global_footprint_title_en_only: "Global Footprint",
+                connect_global: "",
+                scan_instruction: "Scan to connect with our global community.",
+                qr1_title: "Discover Study Tours & Research Programs",
+                qr1_desc: "Explore our global study programs",
+                qr1_title_main: "Global Study Tours",
+                qr1_title_sub: "Scan to view details",
+                view_details_container: "",
+                view_details: "View Details",
+                qr2_title: "Read Alumni Success Stories",
+                qr2_desc: "View alumni success cases",
+                qr2_title_main: "Alumni Stories",
+                qr2_title_sub: "Scan to view details",
+                read_more_container: "",
+                read_more: "Read More",
+                qr_instruction: "Scan to connect with our global community",
+                jiusi_title: "JIUSI Capital",
+                jiusi_subtitle: "Connecting Capital with High-Growth Innovation.",
+                jiusi_section_title: "Innovative Enterprise Investment & Financing Platform",
+                jiusi_desc: "Focused on entrepreneurship services, we connect investors with high-quality projects through efficient, precise, and systematic solutions. Trusted by over 5,000 investors, we facilitate 200+ roadshows and one-on-one meetings annually, while providing full-process, modular financing services to high-growth innovative enterprises.",
+                jiusi_stat1: "5,000+",
+                jiusi_stat1_label: "Investors",
+                jiusi_stat2: "200+",
+                jiusi_stat2_label: "Roadshows & Meetings Annually",
+                jiusi_qr_text: "Scan to learn more"
+            }
+        };
+
+        let currentLang = 'zh';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            
+            document.getElementById('lang-btn-text').innerText = currentLang === 'zh' ? 'EN' : '中文';
+            document.getElementById('lang-btn-text-mobile').innerText = currentLang === 'zh' ? 'EN' : '中文';
+
+            // Handle title visibility
+            const titleMain = document.querySelector('[data-key="global_footprint_title_main"]');
+            const titleEn = document.querySelector('[data-key="global_footprint_title_en_only"]');
+            
+            if (currentLang === 'zh') {
+                titleMain.classList.remove('hidden');
+                titleEn.classList.add('hidden');
+            } else {
+                titleMain.classList.add('hidden');
+                titleEn.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                const translation = translations[currentLang][key];
+                
+                // Update content
+                if (translation !== undefined) {
+                    element.innerHTML = translation;
+                }
+                
+                // Hide element if content is empty
+                if (translation === '' || translation === null || translation === undefined) {
+                    element.classList.add('hidden');
+                } else {
+                    element.classList.remove('hidden');
+                }
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleMain = document.querySelector('[data-key="global_footprint_title_main"]');
+            const titleEn = document.querySelector('[data-key="global_footprint_title_en_only"]');
+            if (titleMain && titleEn) {
+                titleMain.classList.remove('hidden');
+                titleEn.classList.add('hidden');
+            }
+            
+            // Initialize empty content elements for current language
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                const translation = translations[currentLang][key];
+                
+                if (translation === '' || translation === null || translation === undefined) {
+                    element.classList.add('hidden');
+                }
+            });
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') {
+                    return; // Skip if href is just "#"
+                }
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
